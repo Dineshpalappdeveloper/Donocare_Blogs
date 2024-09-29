@@ -25,10 +25,14 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isSuperAdmin: {
+      type: Boolean,
+      default: false,
+    }
   },
   { timestamps: true }
 );
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('blogUser', userSchema);
 
 export default User;

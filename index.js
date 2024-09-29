@@ -7,7 +7,6 @@ import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
-import path from 'path';
 
 dotenv.config();
 
@@ -20,16 +19,17 @@ mongoose
     console.log(err);
   });
 
-const __dirname = path.resolve();
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ // Ensure the cors middleware is correctly applied
-  origin: "*", // For development. Change this in production to specific origins
-}));
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // Routes
 app.use('/api/user', userRoutes);
@@ -37,18 +37,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
 
-// Serve static files (if needed)
-// app.use(express.static(path.join(__dirname, '/client/dist')));
 
 // Root Route
 app.get("/", (req, res) => {
   res.send("Welcome to Donocare Services");
 });
 
-// Catch-all route (if using frontend routing, uncomment for production)
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-// });
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
